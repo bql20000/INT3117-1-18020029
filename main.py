@@ -12,7 +12,11 @@ def calculate_ship_cost(weight, distance):
     if weight < 0 or weight > MAX_WEIGHT or distance < 0 or distance > MAX_DISTANCE:
         return -1
 
-    cost = INIT_COST + (weight > BULKY_ITEM_LIMIT) * BULKY_ITEM_SURCHARGE
+    cost = INIT_COST
+    if weight > BULKY_ITEM_LIMIT:
+        cost += BULKY_ITEM_SURCHARGE
+
     cost += min(NEAR_DISTANCE_LIMIT, distance) * NEAR_DISTANCE_COST
     cost += max(distance - NEAR_DISTANCE_LIMIT, 0) * FAR_DISTANCE_COST
     return cost
+
